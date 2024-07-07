@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:pos_management/ui/screen/home_screen.dart';
+import 'package:pos_management/ui/utiliy/app_colors.dart';
 
+import '../../utiliy/applogo.dart';
 import '../../utiliy/circular_prefix_icon.dart';
 
 class UpdatePasswordScreen extends StatefulWidget {
@@ -13,68 +17,71 @@ class _UpdatePasswordScreenState extends State<UpdatePasswordScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Text(
-                  'Update Password',
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-                SizedBox(
-                  height: 100,
-                ),
-                Row(
-                  children: [
-                    CircularPrefixIcon(
-                      icon: Icons.lock,
+          padding: const EdgeInsets.all(24.0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 160,
+              ),
+              const AppLogo(
+                height: 80,
+              ),
+              const SizedBox(
+                height: 24.0,
+              ),
+              Text(
+                'Update Password',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(
+                height: 5.0,
+              ),
+              TextFormField(
+                decoration: (const InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: AppColors.primaryColor,
                     ),
-                    SizedBox(
-                      width: 10,
+                    hintText: 'new password')),
+                validator: (value) {
+                  if (value?.trim().isEmpty ?? true) {
+                    return 'Enter your new password';
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              TextFormField(
+                decoration: (const InputDecoration(
+                    prefixIcon: Icon(
+                      Icons.lock,
+                      color: AppColors.primaryColor,
                     ),
-                    Expanded(
-                      child: TextFormField(
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.next,
-                        decoration: InputDecoration(hintText: 'new password'),
-                      ),
-                    )
-                  ],
+                    hintText: 'confirm password')),
+                validator: (value) {
+                  if (value?.trim().isEmpty ?? true) {
+                    return 'Enter your confirm password';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+                    Get.to(() => HomeScreen());
+                  },
+                  child: const Text('Confirm'),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    CircularPrefixIcon(
-                      icon: Icons.lock,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        keyboardType: TextInputType.text,
-                        textInputAction: TextInputAction.done,
-                        decoration:
-                            InputDecoration(hintText: 'confirm password'),
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                SizedBox(
-                  height: 45,
-                  width: 170,
-                  child:
-                      ElevatedButton(onPressed: () {}, child: Text('Confirm')),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
